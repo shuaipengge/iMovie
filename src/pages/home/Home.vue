@@ -23,18 +23,20 @@
     <div>
       <div class="index-item">
         <div class="box-itme" v-for="item in indexImg" :key="item.id">
-          <img class="item-img" :src="item.cover" />
-          <!-- <div class="item-icon">
-            <span>
-              <van-icon name="play-circle-o" />
-            </span>
-            <p>{{item.playCount}}</p>
-            <span>
-              <van-icon name="comment-circle-o" />
-            </span>
-            <p>{{item.duration}}</p>
-          </div> -->
-          <p>{{item.name}} -{{item.artistName}}</p>
+          <img @click="click_img(item.id)" class="item-img" :src="item.coverImgUrl" />
+          <div class="item-icon">
+            <div>
+              <span>
+                <van-icon name="play-circle-o" />
+                {{item.playCount}}
+              </span>
+              <span>
+                <van-icon name="comment-circle-o" />
+                {{item.subscribedCount}}
+              </span>
+            </div>
+          </div>
+          <div class="item-title left">{{item.name}}</div>
         </div>
       </div>
     </div>
@@ -70,11 +72,14 @@ export default {
       // console.log(this.banners[0].pic)
     },
     async getIndexImg() {
-      // 获取首页视频
-      const { data: res } = await this.$http.get('/mv/all?limit=10')
+      // 获取首页歌单
+      const { data: res } = await this.$http.get('/top/playlist/highquality')
       console.log(res)
       if (res.code !== 200) return this.$toast('视频封面获取失败')
-      this.indexImg = res.data
+      this.indexImg = res.playlists
+    },
+    click_img(id) {
+      this.$toast(id)
     }
   }
 }
@@ -106,16 +111,32 @@ export default {
   padding: 0.1rem;
   width: 45%;
   float: left;
+  position: relative;
   //   background: #eee;
   .item-img {
     width: 100%;
-    height: 2rem;
+    height: 3.3rem;
     border-radius: 0.1rem;
   }
-  p {
-    margin: 0.1rem 0;
-    font-size: 0.25rem;
-    line-height: 0.3rem;
-  }
+}
+.item-icon {
+  height: 0;
+  top: 35rem;
+  position: absolute;
+  top: 3.1rem;
+  padding: 0rem 0.1rem;
+  line-height: 0.25rem;
+  font-size: 0.24rem;
+  color: #fff;
+}
+.item-title {
+  margin: 0.1rem 0 0 0;
+  font-size: 0.25rem;
+  line-height: 0.3rem;
+  height: 0.5rem;
+}
+.right {
+  position: absolute;
+  right: -1.9rem;
 }
 </style>

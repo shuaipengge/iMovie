@@ -13,7 +13,14 @@ import './assets/styles/border.css'
 import axios from 'axios'
 
 // 请求的根路径
-axios.defaults.baseURL = 'https://autumnfish.cn/'
+// axios.defaults.baseURL = 'https://autumnfish.cn/'
+
+axios.interceptors.request.use(config => {
+  console.log(config)
+  config.headers.Authorization = window.sessionStorage.getItem('token')
+  return config
+})
+
 Vue.prototype.$http = axios
 
 Vue.config.productionTip = false

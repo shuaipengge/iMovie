@@ -2,13 +2,26 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../pages/login/Login'
 import Home from '../pages/home/Home'
+import Movie from '../pages/movie/Movie.vue'
+import TabMovie from '../pages/movie/components/TabMovie.vue'
 
 Vue.use(VueRouter)
 
 const router = new VueRouter({
   routes: [
     { path: '/login', component: Login },
-    { path: '/home', component: Home }
+    { path: '/home', component: Home },
+    {
+      path: '/movie',
+      component: Movie,
+      children:
+        [
+          {
+            path: '/movie/tabmovie',
+            component: TabMovie
+          }
+        ]
+    }
   ]
 })
 

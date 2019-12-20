@@ -27,8 +27,8 @@ export default {
     return {
       // 这是登录表单的数据绑定对象
       loginFrom: {
-        email: '',
-        password: ''
+        email: 'ilikevue@163.com',
+        password: '123456789..*'
       }
     }
   },
